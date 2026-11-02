@@ -152,13 +152,16 @@ export default function WeddingPage() {
                 Mr. Abdul Jaleel (Babu) &amp; Mrs. Jameela
               </p>
               <p className="font-cormorant italic text-xs text-[#a88a53] mt-0.5">
-                S/o. A.K Hassainar Bava (Late) &amp; Sainaba K (Late) • D/o Moothedath Marakkar (Late) &amp; Thithikutti (Late)
+                S/o. A.K Hassainar Bava (Late) &amp; Sainaba K (Late) &bull; D/o Moothedath Marakkar (Late) &amp; Thithikutti (Late)
+              </p>
+              <p className="font-cinzel text-[11px] text-[#c5a059] tracking-wider mt-1.5">
+                Anekulangara / Kalliyath (H), Near HSM School, Tanur &bull; Ph: +91 9846 501 477
               </p>
 
               <OrnateDivider className="my-5" />
 
               <p className="font-cormorant italic text-base md:text-lg text-[#f3e5ab] px-2 leading-relaxed">
-                Cordially invite your esteemed presence with family for the wedding reception of our beloved Daughter
+                Cordially invite your esteemed presence with family for the wedding reception of our Daughter
               </p>
 
               <div className="my-5">

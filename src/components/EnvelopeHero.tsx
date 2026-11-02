@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import confetti from "canvas-confetti";
-import { Sparkles, Volume2, VolumeX, Heart } from "lucide-react";
+import { Sparkles, Heart } from "lucide-react";
 
 interface EnvelopeHeroProps {
   onOpenInvitation: () => void;
@@ -97,27 +97,6 @@ export default function EnvelopeHero({
       {/* Floating Sparkles & Arabesque Pattern Background */}
       <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:28px_28px]" />
 
-      {/* Music Control Pill */}
-      <div className="absolute top-6 right-6 z-30">
-        <button
-          onClick={toggleMusic}
-          className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#2a170e]/85 border border-[#d4af37]/45 text-[#f5e6b3] text-xs shadow-lg hover:border-[#d4af37] transition-all duration-300"
-          title={isPlayingMusic ? "Mute Ambient Melody" : "Play Ambient Melody"}
-        >
-          {isPlayingMusic ? (
-            <>
-              <Volume2 className="w-4 h-4 text-[#d4af37] animate-pulse" />
-              <span className="hidden sm:inline font-cinzel text-[10px]">Music On</span>
-            </>
-          ) : (
-            <>
-              <VolumeX className="w-4 h-4 text-stone-400" />
-              <span className="hidden sm:inline font-cinzel text-[10px]">Music Off</span>
-            </>
-          )}
-        </button>
-      </div>
-
       {/* Top Header Monogram & Bismillah */}
       <div
         className={`relative z-10 text-center mb-6 transition-all duration-500 ${
@@ -165,7 +144,7 @@ export default function EnvelopeHero({
                 You Are Cordially Invited
               </p>
               <h3 className="font-script text-3xl text-[#3d2310] mt-1">
-                Rishad &amp; Jesli
+                Jesli &amp; Rishad
               </h3>
               <p className="font-cormorant italic text-xs text-[#5c3e25] mt-1">
                 Saturday, 05 December 2026 &bull; Hayath Convention Centre
@@ -187,7 +166,7 @@ export default function EnvelopeHero({
               <div className="relative w-20 h-20 rounded-full border-2 border-[#d4af37] p-1 flex items-center justify-center bg-gradient-to-tr from-[#1b0d06] to-[#361c0e] shadow-[0_0_20px_rgba(212,175,55,0.3)]">
                 <div className="w-full h-full rounded-full border border-dashed border-[#c5a059]/60 flex flex-col items-center justify-center">
                   <span className="font-cinzel text-lg font-bold text-[#f5e6b3] tracking-widest">
-                    R &amp; J
+                    J &amp; R
                   </span>
                   <span className="text-[9px] font-cinzel text-[#d4af37] -mt-1 tracking-wider">
                     2026
@@ -199,10 +178,10 @@ export default function EnvelopeHero({
             {/* Couple Names */}
             <div>
               <h1 className="font-script text-4xl md:text-5xl text-[#f3e5ab] tracking-wide mb-1 drop-shadow-[0_2px_10px_rgba(212,175,55,0.35)]">
-                Rishad &amp; Jesli
+                Jesli &amp; Rishad
               </h1>
               <p className="font-cinzel text-xs md:text-sm tracking-[0.2em] text-[#d4af37] uppercase font-semibold">
-                Muhammed Rishad P &amp; Sainaba Jesli AK
+                Sainaba Jesli AK &amp; Muhammed Rishad P
               </p>
             </div>
 

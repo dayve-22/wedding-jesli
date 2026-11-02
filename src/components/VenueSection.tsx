@@ -13,18 +13,18 @@ export default function VenueSection() {
 
   // Google Calendar Link
   const googleCalendarUrl =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception+|+Muhammed+Rishad+%26+Sainaba+Jesli&dates=20261205T053000Z/20261205T090000Z&details=Wedding+Reception+of+Muhammed+Rishad+P+and+Sainaba+Jesli+AK+at+Hayath+Convention+Centre,+Cherumukku.&location=Hayath+Convention+Centre,+Cherumukku";
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception+|+Sainaba+Jesli+%26+Muhammed+Rishad&dates=20261205T053000Z/20261205T090000Z&details=Wedding+Reception+of+Sainaba+Jesli+AK+and+Muhammed+Rishad+P+at+Hayath+Convention+Centre,+Cherumukku.&location=Hayath+Convention+Centre,+Cherumukku";
 
   const downloadIcs = () => {
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Muhammed Rishad & Sainaba Jesli Wedding//EN",
+      "PRODID:-//Sainaba Jesli & Muhammed Rishad Wedding//EN",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
       "BEGIN:VEVENT",
-      "SUMMARY:Wedding Reception | Muhammed Rishad & Sainaba Jesli",
-      "DESCRIPTION:Cordially invite your esteemed presence with family for the wedding reception of Muhammed Rishad & Sainaba Jesli.",
+      "SUMMARY:Wedding Reception | Sainaba Jesli & Muhammed Rishad",
+      "DESCRIPTION:Cordially invite your esteemed presence with family for the wedding reception of Sainaba Jesli & Muhammed Rishad.",
       "LOCATION:Hayath Convention Centre, Cherumukku",
       "DTSTART:20261205T053000Z",
       "DTEND:20261205T090000Z",
@@ -36,7 +36,7 @@ export default function VenueSection() {
     const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
-    link.setAttribute("download", "rishad-jesli-wedding.ics");
+    link.setAttribute("download", "jesli-rishad-wedding.ics");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

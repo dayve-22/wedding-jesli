@@ -46,7 +46,7 @@ export default function RsvpSection() {
         ? "Yes, I will joyfully attend! ✨"
         : "Sadly not, celebrating with you in spirit 🤍";
 
-    let message = `Assalamu Alaikum, this is *${name.trim()}*.\nI would like to RSVP for the Wedding Reception of *Muhammed Rishad & Sainaba Jesli* (05 Dec 2026, Hayath Convention Centre, Cherumukku).\n\n*Attendance:* ${attendanceText}`;
+    let message = `Assalamu Alaikum, this is *${name.trim()}*.\nI would like to RSVP for the Wedding Reception of *Sainaba Jesli & Muhammed Rishad* (05 Dec 2026, Hayath Convention Centre, Cherumukku).\n\n*Attendance:* ${attendanceText}`;
 
     if (attendance === "yes") {
       message += `\n*Attending Guests:* ${guestCount} Person(s)`;
@@ -131,7 +131,7 @@ export default function RsvpSection() {
             <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href={`https://wa.me/919995601477?text=${encodeURIComponent(
-                  `Hi, this is ${savedData.name}. Following up on my RSVP for Rishad & Jesli's wedding reception.`
+                  `Hi, this is ${savedData.name}. Following up on my RSVP for Jesli & Rishad's wedding reception.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

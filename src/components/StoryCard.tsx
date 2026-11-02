@@ -35,8 +35,8 @@ export default function StoryCard() {
 
             <p className="font-cormorant italic text-sm md:text-base leading-relaxed text-[#4a2e18]">
               Written in the stars and ordained by the Divine, the journey of{" "}
-              <strong className="font-semibold text-[#805e1b]">Muhammed Rishad</strong> and{" "}
-              <strong className="font-semibold text-[#805e1b]">Sainaba Jesli</strong> brings together two loving families in profound gratitude, shared values, and joyous unity.
+              <strong className="font-semibold text-[#805e1b]">Sainaba Jesli</strong> and{" "}
+              <strong className="font-semibold text-[#805e1b]">Muhammed Rishad</strong> brings together two loving families in profound gratitude, shared values, and joyous unity.
             </p>
 
             <p className="font-cormorant italic text-sm md:text-base leading-relaxed text-[#4a2e18]">

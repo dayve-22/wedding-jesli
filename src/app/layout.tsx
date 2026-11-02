@@ -2,10 +2,35 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wedding Reception | Muhammed Rishad & Sainaba Jesli",
-  description: "Cordially invite your esteemed presence with family for the wedding reception of Muhammed Rishad & Sainaba Jesli on Saturday, 5th December 2026 at Hayath Convention Centre, Cherumukku.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://jesli-rishad-wedding.vercel.app"
+  ),
+  title: "Wedding Reception | Sainaba Jesli & Muhammed Rishad",
+  description:
+    "Cordially invite your esteemed presence with family for the wedding reception of Sainaba Jesli & Muhammed Rishad on Saturday, 5th December 2026 at Hayath Convention Centre, Cherumukku.",
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Wedding Reception | Sainaba Jesli & Muhammed Rishad",
+    description:
+      "Cordially invite your esteemed presence with family for the wedding reception of Sainaba Jesli & Muhammed Rishad on Saturday, 5th December 2026 at Hayath Convention Centre, Cherumukku.",
+    images: [
+      {
+        url: "/jesliandrishad-og.png",
+        width: 1200,
+        height: 630,
+        alt: "Wedding Reception of Sainaba Jesli & Muhammed Rishad",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wedding Reception | Sainaba Jesli & Muhammed Rishad",
+    description:
+      "Cordially invite your esteemed presence with family for the wedding reception of Sainaba Jesli & Muhammed Rishad on Saturday, 5th December 2026 at Hayath Convention Centre, Cherumukku.",
+    images: ["/jesliandrishad-og.png"],
   },
 };
 
