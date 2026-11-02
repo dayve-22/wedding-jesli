@@ -6,7 +6,6 @@ import CalendarCard from "@/components/CalendarCard";
 import CountdownTimer from "@/components/CountdownTimer";
 import VenueSection from "@/components/VenueSection";
 import StoryCard from "@/components/StoryCard";
-import RsvpSection from "@/components/RsvpSection";
 import FamilyFooter from "@/components/FamilyFooter";
 import MusicPlayer from "@/components/MusicPlayer";
 import DeveloperCreditWidget from "@/components/DeveloperCreditWidget";
@@ -19,7 +18,6 @@ export default function WeddingPage() {
   // Auto-scroll smoothly through the invitation after envelope opens
   useEffect(() => {
     if (!isOpen) return;
-
     // Reset window scroll to top when page opens
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
 
@@ -155,9 +153,8 @@ export default function WeddingPage() {
 
   return (
     <main
-      className={`min-h-screen bg-[#140b07] text-[#f7ede2] relative selection:bg-[#d4af37] selection:text-[#180d07] ${
-        !isOpen ? "h-screen overflow-hidden" : "overflow-x-hidden"
-      }`}
+      className={`min-h-screen bg-[#140b07] text-[#f7ede2] relative selection:bg-[#d4af37] selection:text-[#180d07] ${!isOpen ? "h-screen overflow-hidden" : "overflow-x-hidden"
+        }`}
     >
       {/* Background Ambience Texture */}
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,rgba(66,38,24,0.35)_0%,rgba(20,11,7,0.95)_75%)] -z-10" />
@@ -197,9 +194,10 @@ export default function WeddingPage() {
               <p className="font-cinzel text-xs md:text-sm tracking-[0.2em] text-[#e8cf8d] uppercase font-semibold">
                 Mr. Abdul Jaleel (Babu) &amp; Mrs. Jameela
               </p>
-              <p className="font-cormorant italic text-xs text-[#a88a53] mt-0.5">
-                S/o. A.K Hassainar Bava (Late) &amp; Sainaba K (Late) &bull; D/o Moothedath Marakkar (Late) &amp; Thithikutti (Late)
-              </p>
+              <div className="font-cormorant italic text-xs text-[#a88a53] mt-0.5 space-y-0.5">
+                <p>S/o. A.K Hassainar Bava (Late) &amp; Sainaba K (Late)</p>
+                <p>D/o. Moothedath Marakkar (Late) &amp; Thithikutti (Late)</p>
+              </div>
               <p className="font-cinzel text-[11px] text-[#c5a059] tracking-wider mt-1.5">
                 Anekulangara / Kalliyath (H), Near HSM School, Tanur &bull; Ph: +91 9846 501 477
               </p>
@@ -255,11 +253,6 @@ export default function WeddingPage() {
           {/* SPIRITUAL BLESSING & STORY (No couple photos) */}
           <section className="py-6 px-4">
             <StoryCard />
-          </section>
-
-          {/* RSVP FORM SECTION (With WhatsApp 9995601477 submission) */}
-          <section className="py-6 px-4">
-            <RsvpSection />
           </section>
 
           {/* FAMILY FOOTER & SPONSORS */}

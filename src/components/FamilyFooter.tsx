@@ -28,9 +28,10 @@ export default function FamilyFooter() {
           <h3 className="font-cinzel text-lg md:text-xl font-bold text-[#f7edd4] mt-1">
             Mr. Abdul Jaleel (Babu) &amp; Mrs. Jameela
           </h3>
-          <p className="font-cormorant italic text-xs md:text-sm text-[#bca58d] mt-1">
-            S/o. A.K Hassainar Bava (Late) &amp; Sainaba K (Late) • D/o Moothedath Marakkar (Late) &amp; Thithikutti (Late)
-          </p>
+          <div className="font-cormorant italic text-xs md:text-sm text-[#bca58d] mt-1 space-y-0.5">
+            <p>S/o. A.K Hassainar Bava (Late) &amp; Sainaba K (Late)</p>
+            <p>D/o. Moothedath Marakkar (Late) &amp; Thithikutti (Late)</p>
+          </div>
 
           <div className="mt-2 text-xs text-[#d8c5b0] space-y-0.5">
             <p className="font-cinzel text-[11px] text-[#e8cf8d]">
