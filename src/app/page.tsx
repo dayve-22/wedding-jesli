@@ -24,52 +24,75 @@ export default function WeddingPage() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
 
     let animationFrameId: number;
-    let isStopped = false;
     let isInteracting = false;
     let resumeTimeout: NodeJS.Timeout | null = null;
+    let currentY = 0;
+    let lastAutoScrollY = -1;
+    let lastTime = performance.now();
+    const pixelsPerSecond = 42; // Perfectly balanced, buttery-smooth reading pace
 
-    // Pause on touch or mouse press
-    const handleTouchStart = () => {
+    const pauseScrolling = () => {
       isInteracting = true;
       if (resumeTimeout) clearTimeout(resumeTimeout);
     };
 
-    // Resume scrolling after releasing screen
-    const handleTouchEnd = () => {
+    const resumeScrollingWithDelay = (delayMs = 1000) => {
       if (resumeTimeout) clearTimeout(resumeTimeout);
       resumeTimeout = setTimeout(() => {
         isInteracting = false;
-      }, 600);
+        currentY = window.scrollY;
+      }, delayMs);
     };
 
-    // Pause on mouse wheel / trackpad scroll and resume shortly after
+    const handlePointerDown = () => {
+      pauseScrolling();
+    };
+
+    const handlePointerUp = () => {
+      resumeScrollingWithDelay(1000);
+    };
+
     const handleWheel = () => {
-      isInteracting = true;
-      if (resumeTimeout) clearTimeout(resumeTimeout);
-      resumeTimeout = setTimeout(() => {
-        isInteracting = false;
-      }, 1000);
+      pauseScrolling();
+      resumeScrollingWithDelay(1200);
+    };
+
+    // Detect user manual scroll (momentum flick, scrollbar, arrow keys)
+    const handleScroll = () => {
+      // If the scroll event was triggered by our own auto-scroller, ignore it
+      if (Math.abs(window.scrollY - lastAutoScrollY) < 3) {
+        return;
+      }
+      // User is actively scrolling or browser momentum is gliding
+      pauseScrolling();
+      currentY = window.scrollY;
+      resumeScrollingWithDelay(1200);
     };
 
     const cleanupListeners = () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
-      window.removeEventListener("touchcancel", handleTouchEnd);
-      window.removeEventListener("mousedown", handleTouchStart);
-      window.removeEventListener("mouseup", handleTouchEnd);
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("pointercancel", handlePointerUp);
+      window.removeEventListener("touchstart", handlePointerDown);
+      window.removeEventListener("touchend", handlePointerUp);
+      window.removeEventListener("touchcancel", handlePointerUp);
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("scroll", handleScroll);
     };
 
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
-    window.addEventListener("touchcancel", handleTouchEnd, { passive: true });
-    window.addEventListener("mousedown", handleTouchStart, { passive: true });
-    window.addEventListener("mouseup", handleTouchEnd, { passive: true });
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+    window.addEventListener("pointerup", handlePointerUp, { passive: true });
+    window.addEventListener("pointercancel", handlePointerUp, { passive: true });
+    window.addEventListener("touchstart", handlePointerDown, { passive: true });
+    window.addEventListener("touchend", handlePointerUp, { passive: true });
+    window.addEventListener("touchcancel", handlePointerUp, { passive: true });
     window.addEventListener("wheel", handleWheel, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Wait 1 second after opening, then scroll down slowly and smoothly
+    // Wait 1 second after opening, then begin continuous smooth scroll
     const timer = setTimeout(() => {
-      if (isStopped) return;
+      currentY = window.scrollY;
+      lastTime = performance.now();
 
       const getTargetY = () =>
         Math.max(
@@ -77,35 +100,39 @@ export default function WeddingPage() {
           document.documentElement.scrollHeight
         ) - window.innerHeight;
 
-      let lastTime = performance.now();
-      const pixelsPerSecond = 38; // Gentle, smooth reading pace
-
       const animateScroll = (now: number) => {
-        if (isStopped) return;
-
-        const deltaTime = (now - lastTime) / 1000;
+        const deltaTime = Math.min((now - lastTime) / 1000, 0.1);
         lastTime = now;
 
         const targetY = getTargetY();
 
-        // Check if reached the end
-        if (window.scrollY >= targetY - 2) {
-          isStopped = true;
-          cleanupListeners();
-          return;
-        }
+        // Check if an input field is focused (typing RSVP)
+        const activeTag = document.activeElement?.tagName;
+        const isTyping =
+          activeTag === "INPUT" ||
+          activeTag === "TEXTAREA" ||
+          activeTag === "SELECT";
 
-        // Only scroll if user is not currently touching / interacting
-        if (!isInteracting) {
-          const nextY = Math.min(
-            targetY,
-            window.scrollY + pixelsPerSecond * deltaTime
-          );
+        // Stop auto-scrolling when reaching the very end of the page
+        const isAtEnd = targetY > 50 && window.scrollY >= targetY - 6;
+
+        if (!isInteracting && !isTyping && !isAtEnd && targetY > 50) {
+          // Keep currentY in sync if any external shift occurred
+          if (Math.abs(window.scrollY - currentY) > 5) {
+            currentY = window.scrollY;
+          }
+
+          currentY += pixelsPerSecond * deltaTime;
+          if (currentY > targetY) currentY = targetY;
+
+          lastAutoScrollY = currentY;
           window.scrollTo({
-            top: nextY,
+            top: currentY,
             left: 0,
             behavior: "instant" as ScrollBehavior,
           });
+        } else if (isInteracting || isTyping) {
+          currentY = window.scrollY;
         }
 
         animationFrameId = requestAnimationFrame(animateScroll);
@@ -117,7 +144,6 @@ export default function WeddingPage() {
     return () => {
       clearTimeout(timer);
       if (resumeTimeout) clearTimeout(resumeTimeout);
-      isStopped = true;
       cancelAnimationFrame(animationFrameId);
       cleanupListeners();
     };
