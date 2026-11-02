@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl = "https://jesliandrishad.vercel.app";
-const ogImageUrl = `${siteUrl}/og-image.png`;
+const ogImageUrl = `${siteUrl}/og-image.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -22,11 +22,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: ogImageUrl,
+        url: "/og-image.jpg",
         secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        type: "image/png",
+        type: "image/jpeg",
         alt: "Wedding Reception of Sainaba Jesli & Muhammed Rishad",
       },
     ],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Wedding Reception | Sainaba Jesli & Muhammed Rishad",
     description:
       "Cordially invite your esteemed presence with family for the wedding reception of Sainaba Jesli & Muhammed Rishad on Saturday, 5th December 2026 at Hayath Convention Centre, Cherumukku.",
-    images: [ogImageUrl],
+    images: ["/og-image.jpg"],
   },
 };
 
@@ -54,10 +54,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Pinyon+Script&display=swap"
           rel="stylesheet"
         />
-        {/* Direct OpenGraph meta for WhatsApp, Facebook, iMessage */}
+        {/* Direct OpenGraph meta for WhatsApp large card on top */}
         <meta property="og:image" content={ogImageUrl} />
         <meta property="og:image:secure_url" content={ogImageUrl} />
-        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:image" content={ogImageUrl} />
