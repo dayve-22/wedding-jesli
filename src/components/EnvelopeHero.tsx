@@ -85,11 +85,10 @@ export default function EnvelopeHero({
 
   return (
     <div
-      className={`fixed inset-0 z-50 w-full h-screen overflow-hidden flex flex-col items-center justify-center px-4 bg-[#140b07] transition-all duration-700 select-none ${
-        phase === "complete"
+      className={`fixed inset-0 z-50 w-full h-screen overflow-hidden flex flex-col items-center justify-center px-4 bg-[#140b07] transition-all duration-700 select-none ${phase === "complete"
           ? "opacity-0 scale-105 pointer-events-none"
           : "opacity-100 scale-100"
-      }`}
+        }`}
     >
       {/* Background radial glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(74,44,29,0.55)_0%,rgba(20,11,7,0.98)_75%)] pointer-events-none" />
@@ -99,9 +98,8 @@ export default function EnvelopeHero({
 
       {/* Top Header Monogram & Bismillah */}
       <div
-        className={`relative z-10 text-center mb-6 transition-all duration-500 ${
-          phase !== "idle" ? "opacity-30 -translate-y-2" : "opacity-100 translate-y-0"
-        }`}
+        className={`relative z-10 text-center mb-6 transition-all duration-500 ${phase !== "idle" ? "opacity-30 -translate-y-2" : "opacity-100 translate-y-0"
+          }`}
       >
         <p className="font-amiri text-lg md:text-xl text-[#d4af37] tracking-wider mb-1">
           بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
@@ -114,9 +112,8 @@ export default function EnvelopeHero({
       {/* Envelope Card Container */}
       <div className="relative z-10 w-full max-w-md">
         <div
-          className={`relative rounded-3xl p-1 bg-gradient-to-b from-[#e3cca6] via-[#9e762c] to-[#462b16] shadow-[0_30px_70px_rgba(0,0,0,0.9)] cursor-pointer group transition-transform duration-500 ${
-            isHovered && phase === "idle" ? "scale-[1.02]" : "scale-100"
-          }`}
+          className={`relative rounded-3xl p-1 bg-gradient-to-b from-[#e3cca6] via-[#9e762c] to-[#462b16] shadow-[0_30px_70px_rgba(0,0,0,0.9)] cursor-pointer group transition-transform duration-500 ${isHovered && phase === "idle" ? "scale-[1.02]" : "scale-100"
+            }`}
           onClick={handleOpen}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -131,11 +128,10 @@ export default function EnvelopeHero({
 
             {/* Sliding Letter Animation (Card emerges when opened) */}
             <div
-              className={`absolute left-4 right-4 rounded-xl p-6 parchment-card border border-[#d4af37] text-center shadow-2xl transition-all duration-1000 ease-out z-20 ${
-                isLetterEmerging
+              className={`absolute left-4 right-4 rounded-xl p-6 parchment-card border border-[#d4af37] text-center shadow-2xl transition-all duration-1000 ease-out z-20 ${isLetterEmerging
                   ? "top-4 opacity-100 scale-100 pointer-events-auto"
                   : "top-28 opacity-0 scale-95 pointer-events-none"
-              }`}
+                }`}
             >
               <div className="w-8 h-8 mx-auto rounded-full bg-[#f4ebd9] border border-[#d4af37] flex items-center justify-center text-[#8f6f1c] mb-2">
                 <Heart className="w-4 h-4 fill-[#d4af37] text-[#d4af37]" />
@@ -156,9 +152,8 @@ export default function EnvelopeHero({
 
             {/* Envelope Flap Animation Overlay */}
             <div
-              className={`absolute -top-10 left-0 right-0 h-28 bg-gradient-to-b from-[#3a2012] via-[#28150b] to-transparent pointer-events-none transition-transform duration-700 origin-top ${
-                isFlapOpen ? "scale-y-0 opacity-20" : "scale-y-100 opacity-60"
-              }`}
+              className={`absolute -top-10 left-0 right-0 h-28 bg-gradient-to-b from-[#3a2012] via-[#28150b] to-transparent pointer-events-none transition-transform duration-700 origin-top ${isFlapOpen ? "scale-y-0 opacity-20" : "scale-y-100 opacity-60"
+                }`}
             />
 
             {/* Monogram Royal Crest */}
@@ -197,18 +192,19 @@ export default function EnvelopeHero({
             {/* 3D Wax Seal Button */}
             <div className="relative my-4 flex justify-center">
               <div
-                className={`relative w-24 h-24 rounded-full p-1.5 transition-all duration-500 flex items-center justify-center ${
-                  phase === "unsealing"
+                className={`relative w-24 h-24 rounded-full p-1.5 transition-all duration-500 flex items-center justify-center ${phase === "unsealing"
                     ? "scale-125 rotate-12 opacity-80"
                     : isHovered
-                    ? "scale-110"
-                    : "scale-100"
-                }`}
+                      ? "scale-110"
+                      : "scale-100"
+                  }`}
               >
                 {/* 3D Gold Wax Seal */}
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-[#d4af37] via-[#aa8420] to-[#614709] p-1 shadow-[0_12px_28px_rgba(0,0,0,0.85),inset_0_2px_4px_rgba(255,255,255,0.5)] flex items-center justify-center border border-[#fff2b2]/40">
                   <div className="w-full h-full rounded-full border border-[#806112] flex flex-col items-center justify-center bg-[#876510] text-[#fff6d6] shadow-inner">
-                    <span className="text-xs">👑</span>
+                    {phase === "idle" && (
+                      <span className="text-xs">👑</span>
+                    )}
                     <span className="font-cinzel text-[11px] font-bold tracking-widest mt-0.5">
                       {phase === "idle" ? "CLICK" : "OPENING"}
                     </span>
