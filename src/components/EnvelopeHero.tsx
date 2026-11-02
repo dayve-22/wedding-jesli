@@ -212,9 +212,11 @@ export default function EnvelopeHero({
                     <span className="font-cinzel text-[11px] font-bold tracking-widest mt-0.5">
                       {phase === "idle" ? "CLICK" : "OPENING"}
                     </span>
-                    <span className="text-[8px] font-cinzel text-[#f3e5ab] tracking-widest">
-                      TO OPEN
-                    </span>
+                    {phase === "idle" && (
+                      <span className="text-[8px] font-cinzel text-[#f3e5ab] tracking-widest">
+                        TO OPEN
+                      </span>
+                    )}
                   </div>
                 </div>
 
