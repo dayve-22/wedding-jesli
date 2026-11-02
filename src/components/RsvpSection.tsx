@@ -8,7 +8,6 @@ import OrnateFrame from "./OrnateFrame";
 interface RsvpData {
   name: string;
   attendance: "yes" | "no";
-  phone: string;
   notes: string;
   submittedAt: string;
 }
@@ -16,7 +15,6 @@ interface RsvpData {
 export default function RsvpSection() {
   const [name, setName] = useState("");
   const [attendance, setAttendance] = useState<"yes" | "no">("yes");
-  const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [savedData, setSavedData] = useState<RsvpData | null>(null);
@@ -46,9 +44,6 @@ export default function RsvpSection() {
 
     let message = `Assalamu Alaikum, this is *${name.trim()}*.\nI would like to RSVP for the Wedding Reception of *Sainaba Jesli & Muhammed Rishad* (05 Dec 2026, Hayath Convention Centre, Cherumukku).\n\n*Attendance:* ${attendanceText}`;
 
-    if (phone.trim()) {
-      message += `\n*Contact Number:* ${phone.trim()}`;
-    }
     if (notes.trim()) {
       message += `\n*Message / Du'a:* ${notes.trim()}`;
     }
@@ -62,7 +57,6 @@ export default function RsvpSection() {
     const newRsvp: RsvpData = {
       name: name.trim(),
       attendance,
-      phone: phone.trim(),
       notes: notes.trim(),
       submittedAt: new Date().toISOString(),
     };
@@ -92,7 +86,6 @@ export default function RsvpSection() {
     if (savedData) {
       setName(savedData.name);
       setAttendance(savedData.attendance);
-      setPhone(savedData.phone || "");
       setNotes(savedData.notes || "");
     }
     setSubmitted(false);
@@ -206,20 +199,6 @@ export default function RsvpSection() {
                   </span>
                 </label>
               </div>
-            </div>
-
-            {/* Contact / Phone */}
-            <div>
-              <label className="block font-cinzel text-xs font-bold tracking-wider text-[#523318] uppercase mb-1.5">
-                PHONE NUMBER / WHATSAPP (OPTIONAL)
-              </label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+91 98465 XXXXX"
-                className="w-full px-4 py-2.5 rounded-lg border border-[#c5a059]/60 bg-[#fffdf7] text-[#2b1810] placeholder-[#9c8266] focus:outline-none focus:ring-2 focus:ring-[#aa8420] text-sm font-medium shadow-inner"
-              />
             </div>
 
             {/* Wishes / Dietary */}
