@@ -16,7 +16,7 @@ export default function WeddingPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
-  // Auto-scroll smoothly through the invitation after envelope opens (from previous site)
+  // Auto-scroll smoothly through the invitation after envelope opens
   useEffect(() => {
     if (!isOpen) return;
 
@@ -24,44 +24,52 @@ export default function WeddingPage() {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
 
     let animationFrameId: number;
-    let isCancelled = false;
+    let isStopped = false;
+    let isInteracting = false;
+    let resumeTimeout: NodeJS.Timeout | null = null;
 
-    // Only cancel if user intentionally tries to scroll manually
-    const handleUserScroll = () => {
-      isCancelled = true;
-      cancelAnimationFrame(animationFrameId);
-      cleanup();
+    // Pause on touch or mouse press
+    const handleTouchStart = () => {
+      isInteracting = true;
+      if (resumeTimeout) clearTimeout(resumeTimeout);
     };
 
-    const handleUserKey = (e: KeyboardEvent) => {
-      if (
-        [
-          "ArrowDown",
-          "ArrowUp",
-          "PageDown",
-          "PageUp",
-          "Space",
-          "Home",
-          "End",
-        ].includes(e.code)
-      ) {
-        handleUserScroll();
-      }
+    // Resume scrolling after releasing screen
+    const handleTouchEnd = () => {
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(() => {
+        isInteracting = false;
+      }, 600);
     };
 
-    const cleanup = () => {
-      window.removeEventListener("wheel", handleUserScroll);
-      window.removeEventListener("touchmove", handleUserScroll);
-      window.removeEventListener("keydown", handleUserKey);
+    // Pause on mouse wheel / trackpad scroll and resume shortly after
+    const handleWheel = () => {
+      isInteracting = true;
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(() => {
+        isInteracting = false;
+      }, 1000);
     };
 
-    window.addEventListener("wheel", handleUserScroll, { passive: true });
-    window.addEventListener("touchmove", handleUserScroll, { passive: true });
-    window.addEventListener("keydown", handleUserKey, { passive: true });
+    const cleanupListeners = () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
+      window.removeEventListener("mousedown", handleTouchStart);
+      window.removeEventListener("mouseup", handleTouchEnd);
+      window.removeEventListener("wheel", handleWheel);
+    };
 
-    // Wait 4.5 seconds after opening, then scroll down slowly and smoothly
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchcancel", handleTouchEnd, { passive: true });
+    window.addEventListener("mousedown", handleTouchStart, { passive: true });
+    window.addEventListener("mouseup", handleTouchEnd, { passive: true });
+    window.addEventListener("wheel", handleWheel, { passive: true });
+
+    // Wait 1 second after opening, then scroll down slowly and smoothly
     const timer = setTimeout(() => {
-      if (isCancelled) return;
+      if (isStopped) return;
 
       const getTargetY = () =>
         Math.max(
@@ -73,33 +81,45 @@ export default function WeddingPage() {
       const pixelsPerSecond = 38; // Gentle, smooth reading pace
 
       const animateScroll = (now: number) => {
-        if (isCancelled) return;
+        if (isStopped) return;
 
         const deltaTime = (now - lastTime) / 1000;
         lastTime = now;
 
         const targetY = getTargetY();
-        if (window.scrollY < targetY - 2) {
-          const nextY = window.scrollY + pixelsPerSecond * deltaTime;
+
+        // Check if reached the end
+        if (window.scrollY >= targetY - 2) {
+          isStopped = true;
+          cleanupListeners();
+          return;
+        }
+
+        // Only scroll if user is not currently touching / interacting
+        if (!isInteracting) {
+          const nextY = Math.min(
+            targetY,
+            window.scrollY + pixelsPerSecond * deltaTime
+          );
           window.scrollTo({
             top: nextY,
             left: 0,
             behavior: "instant" as ScrollBehavior,
           });
-          animationFrameId = requestAnimationFrame(animateScroll);
-        } else {
-          cleanup();
         }
+
+        animationFrameId = requestAnimationFrame(animateScroll);
       };
 
       animationFrameId = requestAnimationFrame(animateScroll);
-    }, 4500);
+    }, 1000);
 
     return () => {
       clearTimeout(timer);
-      isCancelled = true;
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      isStopped = true;
       cancelAnimationFrame(animationFrameId);
-      cleanup();
+      cleanupListeners();
     };
   }, [isOpen]);
 
@@ -169,7 +189,7 @@ export default function WeddingPage() {
                   Sainaba Jesli AK
                 </h2>
                 <p className="font-cinzel text-[10px] md:text-xs text-[#d4af37] tracking-wider mt-1">
-                  GS/o. Kalliyath Mohammed Haji (Late) &amp; Beepathu (Late)
+                  GGD/o. Kalliyath Mohammed Haji (Late) &amp; Beepathu (Late)
                 </p>
               </div>
 

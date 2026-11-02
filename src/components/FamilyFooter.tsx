@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Phone, MapPin, Heart } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 
 export default function FamilyFooter() {
   return (
@@ -86,13 +86,6 @@ export default function FamilyFooter() {
               <span className="hover:text-[#d4af37] transition-colors">KALLIYATH STORE</span>
             </div>
           </div>
-        </div>
-
-        {/* Final Sign-off */}
-        <div className="pt-6 text-xs text-[#8f7760] font-cinzel tracking-widest flex items-center justify-center space-x-2">
-          <span>WITH LOVE &amp; GRATITUDE</span>
-          <Heart className="w-3 h-3 fill-[#d4af37] text-[#d4af37]" />
-          <span>JESLI &amp; RISHAD</span>
         </div>
 
         {/* Developer Credit Footer Badge */}
